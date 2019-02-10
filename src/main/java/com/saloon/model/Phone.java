@@ -1,10 +1,20 @@
 package com.saloon.model;
 
-abstract class Phone {
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.persistence.*;
+
+abstract class Phone {
+	
+	@Id
 	private Integer id;
+	
 	private String ddd;
 	private String number;
+	
+	@OneToMany(mappedBy = "phone")
+	private List<Customer> customers = new LinkedList<Customer>();
 	
 	public Phone() {
 		
@@ -14,6 +24,16 @@ abstract class Phone {
 		super();
 		this.ddd = ddd;
 		this.number = number;
+	}
+
+	
+	
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
 	}
 
 	public Integer getId() {

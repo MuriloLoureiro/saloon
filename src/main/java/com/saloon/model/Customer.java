@@ -1,6 +1,8 @@
 package com.saloon.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -12,10 +14,23 @@ public class Customer implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
+	
+	@Column(nullable = false)
 	private String firstName;
+	
+	@Column(nullable = false)
 	private String lastName;
-	private List<Phone> phones;
+	
+	@Column(nullable = false)
+	@ManyToOne
+	@JoinColumn(name = "id_phone_fk")
+	private List<Phone> phones = new LinkedList<Phone>();
+	
+	@Column(nullable = false)
 	private char sex;
+	
+	@Column(columnDefinition = "DATE")
+	private LocalDate birthday;
 	
 	public Customer() {
 		super();
@@ -68,5 +83,14 @@ public class Customer implements Serializable{
 	public void setSex(char sex) {
 		this.sex = sex;
 	}
+
+	public LocalDate getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(LocalDate birthday) {
+		this.birthday = birthday;
+	}
+	
 	
 }
